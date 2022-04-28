@@ -87,30 +87,30 @@ const AccidentReportPage = () => {
     const data = [
         {
             department_name: "Lorem",
-            ref_organization_name: "Liam",
-            creation: "Liam",
-            contact_name: "Olivia",
+            ref_organization_name: "Lorem",
+            creation: "Lorem",
+            contact_name: "Lorem",
             points: "Approved"
         },
         {
             department_name: "Lorem",
-            ref_organization_name: "Elijah",
-            creation: "Liam",
-            contact_name: "Emma",
+            ref_organization_name: "Lorem",
+            creation: "Lorem",
+            contact_name: "Lorem",
             points: "Pending"
         },
         {
             department_name: "Lorem",
-            ref_organization_name: "Noah",
-            creation: "Liam",
-            contact_name: "Ava",
+            ref_organization_name: "Lorem",
+            creation: "Lorem",
+            contact_name: "Lorem",
             points: "Approved"
         },
         {
             department_name: "Lorem",
-            ref_organization_name: "Oliver",
-            creation: "Liam",
-            contact_name: "Charlotte",
+            ref_organization_name: "Lorem",
+            creation: "Lorem",
+            contact_name: "Lorem",
             points: "Approved"
         },
     ]
