@@ -1,26 +1,26 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialData: any = [
-    // {
-    //     "name": "Rejected Applications",
-    //     "label": "Rejected Applications",
-    //     "path": "/app/application/rejected"
-    // },
-    // {
-    //     "name": "Pending Applications",
-    //     "label": "Pending Applications",
-    //     "path": "/app/application/pending"
-    // },
-    // {
-    //     "name": "Approved Applications",
-    //     "label": "Approved Applications",
-    //     "path": "/app/application/approved"
-    // },
-    // {
-    //     "name": "Received Applications",
-    //     "label": "Received Applications",
-    //     "path": "/app/application/received"
-    // }
+    {
+        "name": "Report Accident",
+        "label": "Report Accident",
+        "path": "/app/accidentreport"
+    },
+    {
+        "name": "Pending Applications",
+        "label": "Pending Applications",
+        "path": "/app/application/pending"
+    },
+    {
+        "name": "Approved Applications",
+        "label": "Approved Applications",
+        "path": "/app/application/approved"
+    },
+    {
+        "name": "Received Applications",
+        "label": "Received Applications",
+        "path": "/app/application/received"
+    }
 ]
 
 const initialState = {

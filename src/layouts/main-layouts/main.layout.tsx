@@ -12,25 +12,6 @@ interface LinkItemProps {
     path: string;
 }
 
-// const LinkItems: Array<LinkItemProps> = [
-//
-//     {name: 'Task Roadmap', icon: FiHome, path: '/app/application/roadmap'},
-//     {name: 'Workflow', icon: FiTrendingUp, path: '/app/application/workflow'},
-//     {name: 'Project Summary', icon: FiCompass, path: '/app/application/summary'},
-//     {name: 'All Application', icon: FiStar, path: '/app/application/all'},
-//     {name: 'Received Application', icon: FiSettings, path: '/app/application/received'},
-//     {name: 'Profile', icon: FiSettings, path: '/app/user/profile'},
-//     {name: 'Todo Task', icon: FiSettings, path: '/app/task/all'},
-//     {name: 'Task History', icon: FiSettings, path: '/app/task/history'},
-//     {name: 'Document', icon: FiSettings, path: '/app/user/document'},
-//     {name: 'Organization Profile', icon: FiSettings, path: '/app/organization/profile'},
-//     {name: 'Department', icon: FiSettings, path: '/app/department/all'},
-//     {name: 'Model Page', icon: FiSettings, path: '/app/model'},
-//     {name: 'User', icon: FiSettings, path: '/app/user/all'},
-//     {name: 'Application View', icon: FiSettings, path: '/app/application/view'},
-//     {name: 'User Login', icon: FiSettings, path: '/app/user/login'},
-//     {name: 'User Registration', icon: FiSettings, path: '/app/user/register'}];
-
 const MainLayout = () => {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
