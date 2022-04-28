@@ -76,7 +76,7 @@ const LoginPage = () => {
                                        src={"https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png"}/>
                             </Center>
                             <Text maxW="md" mx="auto" fontWeight="extrabold" fontSize={{base: '4xl', lg: '5xl'}}
-                                  letterSpacing="tight" lineHeight="normal">Welcome to NIA</Text>
+                                  letterSpacing="tight" lineHeight="normal">Welcome to Lorem</Text>
                             <Text mt="5" maxW="sm" mx="auto">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                 Maxime mollitia,
                                 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
@@ -142,7 +142,7 @@ const LoginPage = () => {
                                     }}
                                     mt="6" justifyContent={'end'}
                                 >
-                                    {/*<LightMode>*/}
+                                    <LightMode>
                                         <Button
                                             mb={{
                                                 base: '4',
@@ -164,7 +164,7 @@ const LoginPage = () => {
                                         >
                                             Sign in
                                         </Button>
-                                    {/*</LightMode>*/}
+                                    </LightMode>
                                 </Flex>
                             </form>
                         </Box>

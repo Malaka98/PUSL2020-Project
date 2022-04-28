@@ -1,7 +1,7 @@
 import React, {ReactText} from 'react';
 import {Box, BoxProps, Flex, FlexProps, Icon, Link, Spinner, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
 import {IconType} from 'react-icons';
-// import Header from "../../components/header/header.component";
+import Header from "../../components/header/header.component";
 import {Link as ReachLink, Outlet} from 'react-router-dom';
 import {COLORS, SIZES} from "../../assets/theme/theme";
 import {useDispatch, useSelector} from "react-redux";
@@ -37,7 +37,7 @@ const MainLayout = () => {
 
     return (
         <>
-            {/*<Header/>*/}
+            <Header/>
             <Box minH={SIZES.mainLayoutHeight} bg={useColorModeValue('gray.100', 'gray.900')}>
                 <SidebarContent
                     onClose={() => onClose}
