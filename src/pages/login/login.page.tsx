@@ -43,10 +43,7 @@ const LoginPage = () => {
 
     async function loginActionHandler() {
         // console.log(form?.username)
-        const formData = new FormData();
-        formData.append("username", form?.username)
-        formData.append("password", form?.password)
-        const response: any = await dispatch(loginAction(formData, navigate))
+        const response: any = await dispatch(loginAction({...form}, navigate))
         if (response.status == 'error') {
             toastIdRef.current = toast({
                 title: 'Failed!',
