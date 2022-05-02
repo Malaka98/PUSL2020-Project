@@ -6,14 +6,6 @@ const BASE_URL = "http://localhost:8080/"
 const UserService = createApi({
     reducerPath: "usersApi",
     baseQuery: fetchBaseQuery({
-        // prepareHeaders: (headers => {
-        // //     // headers.set("Content-Type", "application/form-data");
-        // //     headers.set('Access-Control-Allow-Headers', 'Content-Type,X-Api-Key');
-        //     headers.set('Access-Control-Allow-Origin', 'http://localhost:8080');
-        //     headers.set('Access-Control-Allow-Credentials', "true");
-        //     // headers.set('Access-Control-Allow-Methods', 'OPTIONS,POST');
-        //     return headers;
-        // }),
         baseUrl: BASE_URL + "api/",
         credentials: 'include'
     }),

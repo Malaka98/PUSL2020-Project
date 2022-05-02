@@ -1,10 +1,60 @@
-import {Box, Button, FormControl, FormLabel, Heading, Input, Link, SimpleGrid, Stack, Text} from "@chakra-ui/react";
-import React from "react";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormLabel,
+    Heading,
+    Input,
+    Link,
+    SimpleGrid,
+    Stack,
+    Text,
+    Textarea, useToast
+} from "@chakra-ui/react";
+import React, {useState} from "react";
 import useInput from "../../hooks/use-input.hook";
+import RegistrationSchema from "./schema/registration.schema";
+import {AppDispatch} from "../../store/store";
+import {useDispatch} from "react-redux";
+import {UserRegistrationAction} from "./action/user-registration.action";
 
 export const RegisterPage = () => {
-
+    const [errorMessage, setErrorMessage] = useState<any>({})
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const {form, handleOnChange} = useInput()
+    const toast = useToast()
+    const dispatch: AppDispatch = useDispatch();
+
+    const RegisterActionHandler = async () => {
+
+        RegistrationSchema.validate(form, {abortEarly: false}).then(
+            async (result) => {
+                setErrorMessage({})
+                setIsLoading(true)
+                await dispatch(UserRegistrationAction("user", result))
+                setIsLoading(false)
+                toast({
+                    title: 'Successful',
+                    description: "Registration successfully",
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                })
+            }
+        ).catch((error: any) => {
+            setErrorMessage({})
+            error?.inner?.forEach((error: any) => {
+                setErrorMessage((state: any) => ({...state, ...{[error.path]: error.message}}))
+            });
+            toast({
+                title: 'Error',
+                description: "Fill the form correctly ⚠",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+            })
+        })
+    }
 
     return (
         <>
@@ -29,56 +79,58 @@ export const RegisterPage = () => {
                             </Box>
                             <SimpleGrid columns={{base: 1, sm: 2}} spacingX={4} spacingY={2} mt={1}>
                                 <FormControl>
-                                    <FormLabel>Area of Interest</FormLabel>
+                                    <FormLabel>Name</FormLabel>
                                     <Input
                                         onChange={handleOnChange}
                                         type="text"
-                                        name="area_of_interest"
-                                        id="area_of_interest"
+                                        name="name"
+                                        id="name"
                                         autoComplete="given-name"
                                     />
-                                    {/*{errorMessage.area_of_interest ?*/}
-                                    {/*    <span><Text color='red' fontSize='sm'>{errorMessage.area_of_interest}</Text></span> : null}*/}
+                                    {errorMessage.name ?
+                                        <span><Text color='red' fontSize='sm'>{errorMessage.name}</Text></span> : null}
                                 </FormControl>
                                 <FormControl>
-                                    <FormLabel>Area of Interest</FormLabel>
+                                    <FormLabel>Username</FormLabel>
                                     <Input
                                         onChange={handleOnChange}
                                         type="text"
-                                        name="area_of_interest"
-                                        id="area_of_interest"
+                                        name="username"
+                                        id="username"
                                         autoComplete="given-name"
                                     />
-                                    {/*{errorMessage.area_of_interest ?*/}
-                                    {/*    <span><Text color='red' fontSize='sm'>{errorMessage.area_of_interest}</Text></span> : null}*/}
+                                    {errorMessage.username ?
+                                        <span><Text color='red' fontSize='sm'>{errorMessage.username}</Text></span> : null}
                                 </FormControl>
                             </SimpleGrid>
 
                             <SimpleGrid columns={{base: 1, sm: 2}} spacingX={4} spacingY={2} mt={1}>
                                 <FormControl>
-                                    <FormLabel>Workplace</FormLabel>
-                                    <Input onChange={handleOnChange} type="text" name="workplace" id="workplace"
-                                           autoComplete="given-name"/>
+                                    <FormLabel>Password</FormLabel>
+                                    <Input onChange={handleOnChange} type="password" name="password" id="password"/>
+                                    {errorMessage.password ? <span><Text color='red'
+                                                                                    fontSize='sm'>{errorMessage.password}</Text></span> : null}
                                 </FormControl>
                                 <FormControl>
-                                    <FormLabel>Workplace</FormLabel>
-                                    <Input onChange={handleOnChange} type="text" name="workplace" id="workplace"
+                                    <FormLabel>Email</FormLabel>
+                                    <Input onChange={handleOnChange} type="text" name="email" id="email"
                                            autoComplete="given-name"/>
+                                    {errorMessage.email ? <span><Text color='red'
+                                                                                    fontSize='sm'>{errorMessage.email}</Text></span> : null}
                                 </FormControl>
                             </SimpleGrid>
 
-                            <SimpleGrid columns={{base: 1, sm: 2}} spacingX={4} spacingY={2} mt={1}>
                                 <FormControl>
-                                    <FormLabel>Google scholar URL</FormLabel>
-                                    <Input onChange={handleOnChange} type="text" name="google_scholar_url"
-                                           id="google_scholar_url"
-                                           autoComplete="given-name"/>
+                                    <FormLabel>Address</FormLabel>
+                                    <Textarea onChange={handleOnChange} name="address" id="address"
+                                              autoComplete="given-name" />
+                                    {errorMessage.address ? <span><Text color='red'
+                                                                                    fontSize='sm'>{errorMessage.address}</Text></span> : null}
                                 </FormControl>
-                            </SimpleGrid>
                             <Stack direction={"row"} mt={5} justifyContent={"flex-end"}>
                                 <Button colorScheme={"blue"}>Cancel</Button>
-                                <Button colorScheme={"blue"} loadingText="Processing"
-                                        spinnerPlacement="start">Register</Button>
+                                <Button colorScheme={"blue"} isLoading={isLoading} loadingText="Processing"
+                                       onClick={RegisterActionHandler} spinnerPlacement="start">Register</Button>
                             </Stack>
                         </Box>
 
