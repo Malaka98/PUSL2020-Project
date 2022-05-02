@@ -5,6 +5,9 @@ import Header from "../../components/header/header.component";
 import {Link as ReachLink, Outlet} from 'react-router-dom';
 import {COLORS, SIZES} from "../../assets/theme/theme";
 import {useDispatch, useSelector} from "react-redux";
+import {useGetQuery} from "../../service/resource-api.service";
+
+import {Navigate} from "react-router-dom";
 
 interface LinkItemProps {
     name: string;
@@ -15,23 +18,26 @@ interface LinkItemProps {
 const MainLayout = () => {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
-
+    const {isLoading, isSuccess, isError} = useGetQuery({"doc": "validate"})
     return (
         <>
-            <Header/>
-            <Box minH={SIZES.mainLayoutHeight} bg={useColorModeValue('gray.100', 'gray.900')}>
-                <SidebarContent
-                    onClose={() => onClose}
-                    display={{base: 'none', md: 'block'}}
-                    overflowX={'hidden'}
-                    overflowY={"auto"}
-                    h='calc(100vh - 63px)'
-                />
-                <Box minH={SIZES.mainLayoutHeight} bg={useColorModeValue('white', 'gray.900')} ml={{base: 0, md: 60}}
-                     p="4">
-                    <Outlet/>
+            {isLoading ? <h1>Loading...</h1> : isSuccess ? <>
+                <Header/>
+                <Box minH={SIZES.mainLayoutHeight} bg={'gray.100'}>
+                    <SidebarContent
+                        onClose={() => onClose}
+                        display={{base: 'none', md: 'block'}}
+                        overflowX={'hidden'}
+                        overflowY={"auto"}
+                        h='calc(100vh - 63px)'
+                    />
+                    <Box minH={SIZES.mainLayoutHeight} bg={'white'} ml={{base: 0, md: 60}}
+                         p="4">
+                        <Outlet/>
+                    </Box>
                 </Box>
-            </Box>
+            </> : null}
+            {isError ? <Navigate to={"/"} /> : null}
         </>
     );
 }

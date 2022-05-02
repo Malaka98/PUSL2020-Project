@@ -58,9 +58,9 @@ export const RegisterPage = () => {
 
     return (
         <>
-            <Box bg={'gray.100'}>
+            <Box bg={'gray.100'} h={'100vh'}>
                 <Box mx="auto" py={{base: '10', md: '20'}} px={{base: '2', md: '10'}}>
-                    <Box w="full" maxW={'2xl'} mx="auto">
+                    <Box w="full" maxW={'2xl'} mx="auto" mt={'20'}>
                         <Box
                             bg={'white'}
                             rounded={{base: "md", md: '2xl'}}
