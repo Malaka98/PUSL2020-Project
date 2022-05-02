@@ -7,7 +7,7 @@ export const UserRegistrationAction = (doc: String, form: any) => {
     Object.assign(model, form)
     model.role = [
         {
-            "id": 2,
+            "id": 1,
             "name": "USER"
         }
     ]
