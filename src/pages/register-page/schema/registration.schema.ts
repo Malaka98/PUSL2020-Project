@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-const RegistrationSchema =yup.object().shape({
+const RegistrationSchema = yup.object().shape({
     "name": yup.string().required("Name is Required"),
     "username": yup.string().required("Username is Required"),
     "password": yup.string().required("Password is Required"),

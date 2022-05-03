@@ -8,7 +8,7 @@ import {
     MenuButton,
     MenuItem,
     MenuList, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select,
-    Stack,
+    Stack, Text,
     useDisclosure, useToast
 } from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
@@ -16,6 +16,9 @@ import PageHeader from "../../components/page-header/page-header.component";
 import TableComponent from "../../components/table/table.component";
 import {useDispatch} from "react-redux";
 import useInput from "../../hooks/use-input.hook";
+import {AddAccidentReportSchema} from "./schema/add-accident-report.schema";
+import {AddAccidentReportAction} from "./actions/add-accident-report.action";
+import {AppDispatch} from "../../store/store";
 
 const AccidentReportPage = () => {
 
@@ -115,42 +118,45 @@ const AccidentReportPage = () => {
         },
     ]
 
-    const AddNewDepartmentModel = () => {
+    const AddNewAccidentReport = () => {
 
+        const [errorMessage, setErrorMessage] = useState<any>({})
         const {form, handleOnChange} = useInput()
-        const [organizationState, setOrganizationState] = useState<any>([])
-        const dispatch = useDispatch()
+        const dispatch: AppDispatch = useDispatch()
         const [isLoading, setIsLoading] = useState(false) as any
         const toast = useToast()
-        const toastIdRef = React.useRef<any>()
 
         const saveActionHandler = async () => {
-            // setIsLoading(true)
-            // let organizationList: any = organizationState.filter((item: any) => (item.name === form.ref_organization_name))
-            // let model = {...form, ref_organization: organizationList[0]?.organization}
-            // let result: any = await dispatch(createDepartment(model))
-            // setIsLoading(false)
-            //
-            // if (result?.status == 'success') {
-            //     toastIdRef.current = toast({
-            //         title: 'Success!',
-            //         description: "Updated Successful",
-            //         status: 'success',
-            //         duration: 5000,
-            //         isClosable: true,
-            //     })
-            //     onClose()
-            //
-            // } else {
-            //     toastIdRef.current = toast({
-            //         title: 'error!',
-            //         description: "Updated failed",
-            //         status: 'error',
-            //         duration: 5000,
-            //         isClosable: true,
-            //     })
-            //     onClose()
-            // }
+
+            AddAccidentReportSchema.validate(form, {abortEarly: false}).then(
+                async (result) => {
+                    setErrorMessage({})
+                    setIsLoading(true)
+                    const response = await dispatch(AddAccidentReportAction("accident", result))
+                    console.log(response)
+                    setIsLoading(false)
+                    toast({
+                        title: 'Successful',
+                        description: "Add new accident report successful",
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                    })
+                    onClose()
+                }
+            ).catch((error: any) => {
+                setErrorMessage({})
+                error?.inner?.forEach((error: any) => {
+                    setErrorMessage((state: any) => ({...state, ...{[error.path]: error.message}}))
+                });
+                toast({
+                    title: 'Error',
+                    description: "Fill the form correctly ⚠",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                })
+            })
         }
 
         // useEffect(() => {
@@ -162,54 +168,85 @@ const AccidentReportPage = () => {
         //     setOrganizationState(departments.data)
         // }
 
-        return (<Modal size="lg" isOpen={isOpen} onClose={onClose} isCentered>
-            <ModalOverlay/>
-            <ModalContent>
-                <ModalHeader>Add New Department</ModalHeader>
-                <ModalBody>
-                    <Grid
-                        templateRows="repeat(2, 1fr)"
-                        templateColumns="repeat(2, 1fr)"
-                        gap={4}
-                    >
-                        <GridItem>
-                            <FormControl>
-                                <FormLabel color={"gray.500"} fontSize={'sm'}>Department Name</FormLabel>
-                                <Input onChange={handleOnChange}
-                                       size="sm"
-                                       name={'department_name'}
-                                       placeholder="Enter Department Name"
-                                       color={"gray.700"}
-                                />
-                            </FormControl>
-                        </GridItem>
-                        <GridItem>
-                            <FormLabel color={"gray.500"} fontSize={'sm'}>Select organization</FormLabel>
-                            <Select size={'sm'} name={'ref_organization_name'} onChange={handleOnChange}
-                                    placeholder='Select organization'>
-                                {organizationState?.map((item: any, index: any) => (
-                                    <option key={index} value={item.name}>{item.organization}</option>))}
-                            </Select>
-                        </GridItem>
-                        <GridItem>
-                            <FormControl>
-                                <FormLabel color={"gray.500"} fontSize={'sm'}>Remark</FormLabel>
-                                <Input name={'remark'} onChange={handleOnChange} size="sm" placeholder="Enter Remark"
-                                       color={"gray.700"}/>
-                            </FormControl>
-                        </GridItem>
-                    </Grid>
-                </ModalBody>
-                <ModalFooter>
-                    <Button variant="solid" mr={3} onClick={onClose} size="sm">
-                        Cancel
-                    </Button>
-                    <Button onClick={saveActionHandler} colorScheme="blue" mr={3} size="sm">
-                        Confirm
-                    </Button>
-                </ModalFooter>
-            </ModalContent>
-        </Modal>)
+        return (
+            <Modal closeOnOverlayClick={false} size="lg" isOpen={isOpen} onClose={onClose} isCentered>
+                <ModalOverlay/>
+                <ModalContent>
+                    <ModalHeader>Add Accident Report</ModalHeader>
+                    <ModalBody>
+                        <Grid
+                            templateRows="repeat(2, 1fr)"
+                            templateColumns="repeat(2, 1fr)"
+                            gap={4}
+                        >
+                            <GridItem>
+                                <FormControl>
+                                    <FormLabel color={"gray.500"} fontSize={'sm'}>Location</FormLabel>
+                                    <Input onChange={handleOnChange}
+                                           size="sm"
+                                           name={'location'}
+                                           placeholder="Enter Location"
+                                           color={"gray.700"}
+                                    />
+                                    {errorMessage.location ?
+                                        <span><Text color='red'
+                                                    fontSize='sm'>{errorMessage.location}</Text></span> : null}
+                                </FormControl>
+                            </GridItem>
+                            <GridItem>
+                                <FormControl>
+                                    <FormLabel color={"gray.500"} fontSize={'sm'}>Description</FormLabel>
+                                    <Input onChange={handleOnChange}
+                                           size="sm"
+                                           name={'description'}
+                                           placeholder="Enter Description"
+                                           color={"gray.700"}
+                                    />
+                                    {errorMessage.description ?
+                                        <span><Text color='red'
+                                                    fontSize='sm'>{errorMessage.description}</Text></span> : null}
+                                </FormControl>
+                            </GridItem>
+                            <GridItem>
+                                <FormControl>
+                                    <FormLabel color={"gray.500"} fontSize={'sm'}>Vehicle Number</FormLabel>
+                                    <Input onChange={handleOnChange}
+                                           size="sm"
+                                           name={'vehicleNumber'}
+                                           placeholder="Enter Vehicle Number"
+                                           color={"gray.700"}
+                                    />
+                                    {errorMessage.vehicleNumber ?
+                                        <span><Text color='red'
+                                                    fontSize='sm'>{errorMessage.vehicleNumber}</Text></span> : null}
+                                </FormControl>
+                            </GridItem>
+                            <GridItem>
+                                <FormLabel color={"gray.500"} fontSize={'sm'}>Select Vehicle Type</FormLabel>
+                                <Select size={'sm'} name={'vehicleType'} onChange={handleOnChange}
+                                        placeholder='Select Vehicle Type'>
+                                    <option value="bike">Bike</option>
+                                    <option value="car">Car</option>
+                                    <option value="Van">Van</option>
+                                    <option value="bus">Bus</option>
+                                    <option value="Lorry">Lorry</option>
+                                </Select>
+                                {errorMessage.vehicleType ?
+                                    <span><Text color='red'
+                                                fontSize='sm'>{errorMessage.vehicleType}</Text></span> : null}
+                            </GridItem>
+                        </Grid>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button variant="solid" mr={3} onClick={onClose} size="sm">
+                            Cancel
+                        </Button>
+                        <Button onClick={saveActionHandler} isLoading={isLoading} colorScheme="blue" mr={3} size="sm">
+                            Confirm
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>)
     }
 
     return (
@@ -253,7 +290,7 @@ const AccidentReportPage = () => {
 
             <TableComponent columns={COLUMN} data={data}/>
 
-            <AddNewDepartmentModel/>
+            <AddNewAccidentReport/>
 
         </>
     )
