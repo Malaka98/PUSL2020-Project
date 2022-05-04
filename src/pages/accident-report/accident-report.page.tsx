@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Box,
     Button, FormControl, FormLabel, Grid, GridItem,
@@ -17,49 +17,48 @@ import TableComponent from "../../components/table/table.component";
 import {useDispatch} from "react-redux";
 import useInput from "../../hooks/use-input.hook";
 import {AddAccidentReportSchema} from "./schema/add-accident-report.schema";
-import {AddAccidentReportAction} from "./actions/add-accident-report.action";
+import {AddAccidentReportAction, GetAccidentReportList} from "./actions/add-accident-report.action";
 import {AppDispatch} from "../../store/store";
 
 const AccidentReportPage = () => {
 
-    const initialRef = React.useRef<any>(null);
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const dispatch = useDispatch()
-    // const [departmentData, setDepartmentData] = useState([]) as any
+    const dispatch: AppDispatch = useDispatch()
+    const [accidentData, setAccidentData] = useState<Array<any>>([])
 
-    // useEffect(() => {
-    //     getData()
-    // }, [])
-
+    useEffect(() => {
+        getData()
+    }, [])
+    // console.log("**********************" + JSON.stringify(accidentData))
     async function getData() {
-        // let depData: any = await (dispatch(getDepartmentList()))
-        // setDepartmentData(depData.data)
+        let depData: any = await (dispatch(GetAccidentReportList("accident")))
+        setAccidentData(depData.data)
     }
 
     const COLUMN = [
         {
-            header: "Department Name",
-            accessor: "department_name",
+            header: "Location",
+            accessor: "location",
         },
         {
-            header: "Organization Name",
-            accessor: "ref_organization_name",
+            header: "Description",
+            accessor: "description",
         },
         {
-            header: "Creation",
-            accessor: "creation"
+            header: "Vehicle Number",
+            accessor: "vehicleNumber"
         },
         {
-            header: "Contact Name",
-            accessor: "contact_name"
+            header: "Vehicle",
+            accessor: "vehicleType"
         },
         {
-            header: "Points",
-            accessor: "points",
+            header: "Status",
+            accessor: "approved",
             condition: {
                 Approved: "green",
-                Pending: "red",
-                100: "green"
+                Pending: "yellow",
+                Reject: "red"
             }
         },
         {
@@ -89,32 +88,32 @@ const AccidentReportPage = () => {
 
     const data = [
         {
-            department_name: "Lorem",
-            ref_organization_name: "Lorem",
-            creation: "Lorem",
-            contact_name: "Lorem",
-            points: "Approved"
+            location: "Lorem",
+            description: "Lorem",
+            vehicleNumber: "Lorem",
+            vehicleType: "Lorem",
+            approved: "Approved"
         },
         {
-            department_name: "Lorem",
-            ref_organization_name: "Lorem",
-            creation: "Lorem",
-            contact_name: "Lorem",
-            points: "Pending"
+            location: "Lorem",
+            description: "Lorem",
+            vehicleNumber: "Lorem",
+            vehicleType: "Lorem",
+            approved: "Pending"
         },
         {
-            department_name: "Lorem",
-            ref_organization_name: "Lorem",
-            creation: "Lorem",
-            contact_name: "Lorem",
-            points: "Approved"
+            location: "Lorem",
+            description: "Lorem",
+            vehicleNumber: "Lorem",
+            vehicleType: "Lorem",
+            approved: "Reject"
         },
         {
-            department_name: "Lorem",
-            ref_organization_name: "Lorem",
-            creation: "Lorem",
-            contact_name: "Lorem",
-            points: "Approved"
+            location: "Lorem",
+            description: "Lorem",
+            vehicleNumber: "Lorem",
+            vehicleType: "Lorem",
+            approved: "Approved"
         },
     ]
 
@@ -288,7 +287,7 @@ const AccidentReportPage = () => {
                 </Stack>
             </Box>
 
-            <TableComponent columns={COLUMN} data={data}/>
+            <TableComponent columns={COLUMN} data={accidentData}/>
 
             <AddNewAccidentReport/>
 

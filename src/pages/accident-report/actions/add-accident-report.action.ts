@@ -11,3 +11,13 @@ export const AddAccidentReportAction = (doc: String, payload: any) => {
         if (!error) return {status: 'success', data: data.data}; else return {status: 'error'}
     }
 }
+
+export const GetAccidentReportList = (doc: String) => {
+
+    return async (dispatch: AppDispatch) => {
+        const {error, data}: any = await dispatch(ResourceApiService.endpoints.get.initiate({
+            doc: doc
+        }))
+        if (!error) return {status: 'success', data: data}; else return {status: 'error'}
+    }
+}
