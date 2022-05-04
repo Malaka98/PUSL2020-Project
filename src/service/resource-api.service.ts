@@ -3,18 +3,18 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 const BASE_URL = "http://localhost/"
 
 export const ResourceApiService = createApi({
-    reducerPath: "resourceApi",
+    reducerPath: "ResourceApiService",
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_URL + "api/",
         credentials: "include"
     }),
-    tagTypes: ["GetAPI"],
+    tagTypes: ['Get'],
     endpoints: build => ({
         get: build.query<any, any>({
             query: ({
                         doc
                     }: any) => `${doc}`,
-            providesTags: ["GetAPI"]
+            providesTags: ['Get']
         }),
         create: build.mutation<any, any>({
             query: ({

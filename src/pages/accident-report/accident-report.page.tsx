@@ -17,8 +17,9 @@ import TableComponent from "../../components/table/table.component";
 import {useDispatch} from "react-redux";
 import useInput from "../../hooks/use-input.hook";
 import {AddAccidentReportSchema} from "./schema/add-accident-report.schema";
-import {AddAccidentReportAction, GetAccidentReportList} from "./actions/add-accident-report.action";
+import {AddAccidentReportAction} from "./actions/add-accident-report.action";
 import {AppDispatch} from "../../store/store";
+import {useGetAccidentListQuery} from "../../service/accident-api.service";
 
 const AccidentReportPage = () => {
 
@@ -26,14 +27,19 @@ const AccidentReportPage = () => {
     const dispatch: AppDispatch = useDispatch()
     const [accidentData, setAccidentData] = useState<Array<any>>([])
 
-    useEffect(() => {
-        getData()
-    }, [])
+    const {isLoading, data} = useGetAccidentListQuery({"doc": "accident"})
+
+    // useEffect(() => {
+    //     getData()
+    // }, [accidentData])
     // console.log("**********************" + JSON.stringify(accidentData))
-    async function getData() {
-        let depData: any = await (dispatch(GetAccidentReportList("accident")))
-        setAccidentData(depData.data)
-    }
+    // async function getData() {
+    //     let depData: any = await (dispatch(GetAccidentReportList("accident")))
+    //     setAccidentData(depData.data)
+    // }
+    // if(data) {
+    //     setAccidentData(data)
+    // }
 
     const COLUMN = [
         {
@@ -86,7 +92,7 @@ const AccidentReportPage = () => {
         }
     ]
 
-    const data = [
+    const rowData = [
         {
             location: "Lorem",
             description: "Lorem",
@@ -131,6 +137,7 @@ const AccidentReportPage = () => {
                 async (result) => {
                     setErrorMessage({})
                     setIsLoading(true)
+                    // await dispatch(ResourceApiService.util.invalidateTags(['Get']))
                     const response = await dispatch(AddAccidentReportAction("accident", result))
                     console.log(response)
                     setIsLoading(false)
@@ -287,7 +294,7 @@ const AccidentReportPage = () => {
                 </Stack>
             </Box>
 
-            <TableComponent columns={COLUMN} data={accidentData}/>
+            <TableComponent columns={COLUMN} data={data}/>
 
             <AddNewAccidentReport/>
 

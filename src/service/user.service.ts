@@ -4,7 +4,7 @@ import {BaseQueryResult} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 const BASE_URL = "http://localhost:8080/"
 
 const UserService = createApi({
-    reducerPath: "usersApi",
+    reducerPath: "UserService",
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_URL + "api/",
         credentials: 'include'
@@ -17,7 +17,6 @@ const UserService = createApi({
                 method: 'POST',
                 body: payload,
             }),
-            invalidatesTags: ['User'],
             // transformResponse: (response: BaseQueryResult<any>) => {
             //     console.log("*********************" + response)
             //     if (response.message === "Logged In") return {...response, isLoggedIn: true}
