@@ -20,12 +20,14 @@ import {AddAccidentReportSchema} from "./schema/add-accident-report.schema";
 import {AddAccidentReportAction} from "./actions/add-accident-report.action";
 import {AppDispatch} from "../../store/store";
 import {useGetAccidentListQuery} from "../../service/accident-api.service";
+import AddPhotosComponent from "./components/add-photos.component";
 
 const AccidentReportPage = () => {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const dispatch: AppDispatch = useDispatch()
-    const [accidentData, setAccidentData] = useState<Array<any>>([])
+    const disclosure =  useDisclosure()
+    // const dispatch: AppDispatch = useDispatch()
+    // const [accidentData, setAccidentData] = useState<Array<any>>([])
 
     const {isLoading, data} = useGetAccidentListQuery({"doc": "accident"})
 
@@ -71,9 +73,10 @@ const AccidentReportPage = () => {
             header: "Actions",
             options: [
                 {
-                    label: "Profile",
+                    label: "Add Photos",
                     action: function (rowItem: any) {
                         console.log(rowItem)
+                        disclosure.onOpen()
                     }
                 },
                 {
@@ -92,36 +95,22 @@ const AccidentReportPage = () => {
         }
     ]
 
-    const rowData = [
-        {
-            location: "Lorem",
-            description: "Lorem",
-            vehicleNumber: "Lorem",
-            vehicleType: "Lorem",
-            approved: "Approved"
-        },
-        {
-            location: "Lorem",
-            description: "Lorem",
-            vehicleNumber: "Lorem",
-            vehicleType: "Lorem",
-            approved: "Pending"
-        },
-        {
-            location: "Lorem",
-            description: "Lorem",
-            vehicleNumber: "Lorem",
-            vehicleType: "Lorem",
-            approved: "Reject"
-        },
-        {
-            location: "Lorem",
-            description: "Lorem",
-            vehicleNumber: "Lorem",
-            vehicleType: "Lorem",
-            approved: "Approved"
-        },
-    ]
+    // const rowData = [
+    //     {
+    //         location: "Lorem",
+    //         description: "Lorem",
+    //         vehicleNumber: "Lorem",
+    //         vehicleType: "Lorem",
+    //         approved: "Approved"
+    //     },
+    //     {
+    //         location: "Lorem",
+    //         description: "Lorem",
+    //         vehicleNumber: "Lorem",
+    //         vehicleType: "Lorem",
+    //         approved: "Pending"
+    //     }
+    // ]
 
     const AddNewAccidentReport = () => {
 
@@ -297,6 +286,7 @@ const AccidentReportPage = () => {
             <TableComponent columns={COLUMN} data={data}/>
 
             <AddNewAccidentReport/>
+            <AddPhotosComponent disclosure={disclosure} />
 
         </>
     )
