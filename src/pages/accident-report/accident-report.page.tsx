@@ -139,7 +139,7 @@ const AccidentReportPage = () => {
                     attachment.forEach((item: any) => {
                         formData.append("files", item)
                     })
-                    const response = await dispatch(AddAccidentReportAction("accident/multiple/upload", formData))
+                    const response = await dispatch(AddAccidentReportAction("accident", formData))
                     console.log(response)
                     setIsLoading(false)
                     toast({
