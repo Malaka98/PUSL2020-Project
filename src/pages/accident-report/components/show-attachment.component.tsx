@@ -1,9 +1,9 @@
-import {Button, Flex, Text, VStack, Heading} from "@chakra-ui/react";
+import {Button, Flex, Text, VStack} from "@chakra-ui/react";
 import React from "react";
 import AttachmentLines from "./attchment-line.component";
 
-const ShowAttachments = ({lineCloseButtonFunction, state, title, onOpenModel, lineType, page}: any) => {
-   
+const ShowAttachments = ({lineCloseButtonFunction, state, title, onOpenModel}: any) => {
+
     return (
         <>
 
@@ -27,9 +27,8 @@ const ShowAttachments = ({lineCloseButtonFunction, state, title, onOpenModel, li
 
                     {state.map((item: any, index: any) => {
                         return <AttachmentLines closeButtonFunction={lineCloseButtonFunction} name={item.name}
-                                                path={item.path} page={page} key={index} index={index}
-                                                year={item.description} title={item.title}
-                                                lineType={lineType}/>
+                                                path={item.path} key={index} index={index}
+                                                year={item.description} title={item.title}/>
                     })}
 
                 </VStack>
@@ -39,4 +38,4 @@ const ShowAttachments = ({lineCloseButtonFunction, state, title, onOpenModel, li
     )
 }
 
-export default ShowAttachments
+export default React.memo(ShowAttachments)

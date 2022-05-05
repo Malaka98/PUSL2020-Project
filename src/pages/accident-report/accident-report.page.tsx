@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {
     Box,
     Button, FormControl, FormLabel, Grid, GridItem,
@@ -21,11 +21,17 @@ import {AddAccidentReportAction} from "./actions/add-accident-report.action";
 import {AppDispatch} from "../../store/store";
 import {useGetAccidentListQuery} from "../../service/accident-api.service";
 import AddPhotosComponent from "./components/add-photos.component";
+import {useConfirmation} from "../../components/dialog-box/alert-provider";
+import ShowAttachments from "./components/show-attachment.component";
+import AddNewAttachment from "./components/add-new-attachment.component";
+import AddAwardsModel from "./components/add-attachment-model.component";
 
 const AccidentReportPage = () => {
 
+    let id: any
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const disclosure =  useDisclosure()
+    const {isOpen: isAwardOpen, onOpen: onAwardOpen, onClose: onAwardClose} = useDisclosure();
+    const [attachment, setAttachment] = useState<any>([])
     // const dispatch: AppDispatch = useDispatch()
     // const [accidentData, setAccidentData] = useState<Array<any>>([])
 
@@ -76,7 +82,6 @@ const AccidentReportPage = () => {
                     label: "Add Photos",
                     action: function (rowItem: any) {
                         console.log(rowItem)
-                        disclosure.onOpen()
                     }
                 },
                 {
@@ -117,8 +122,9 @@ const AccidentReportPage = () => {
         const [errorMessage, setErrorMessage] = useState<any>({})
         const {form, handleOnChange} = useInput()
         const dispatch: AppDispatch = useDispatch()
-        const [isLoading, setIsLoading] = useState(false) as any
+        const [isLoading, setIsLoading] = useState<boolean>(false)
         const toast = useToast()
+        const confirm = useConfirmation();
 
         const saveActionHandler = async () => {
 
@@ -154,6 +160,18 @@ const AccidentReportPage = () => {
             })
         }
 
+        const lineCloseButtonFunction = useCallback((index: number) => {
+            confirm({
+                variant: "danger",
+                catchOnCancel: true,
+                title: "Are you sure you want to remove this attachment?",
+            }).then(() => {
+                const filteredList = attachment.filter((item: any) => {
+                    return attachment.indexOf(item) != index
+                })
+                setAttachment([...filteredList])
+            })
+        }, [attachment])
         // useEffect(() => {
         //     getData()
         // }, [isOpen])
@@ -231,6 +249,11 @@ const AccidentReportPage = () => {
                                                 fontSize='sm'>{errorMessage.vehicleType}</Text></span> : null}
                             </GridItem>
                         </Grid>
+                        {attachment.length > 0 ?
+                            <ShowAttachments title={'Attachments'} lineCloseButtonFunction={lineCloseButtonFunction}
+                                             onOpenModel={onAwardOpen}
+                                             state={attachment}/> :
+                            <AddNewAttachment title={'Attachments'} onOpenModel={onAwardOpen}/>}
                     </ModalBody>
                     <ModalFooter>
                         <Button variant="solid" mr={3} onClick={onClose} size="sm">
@@ -286,7 +309,12 @@ const AccidentReportPage = () => {
             <TableComponent columns={COLUMN} data={data}/>
 
             <AddNewAccidentReport/>
-            <AddPhotosComponent disclosure={disclosure} />
+            <AddAwardsModel attachment={attachment} setAttachment={setAttachment}
+                            modelMethods={{
+                                isOpen: isAwardOpen,
+                                onOpen: onAwardOpen,
+                                onClose: onAwardClose
+                            }}/>
 
         </>
     )

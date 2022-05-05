@@ -2,7 +2,7 @@ import {Box, Flex, HStack, Text} from "@chakra-ui/react";
 import {CloseButton} from "@chakra-ui/react";
 import React from "react";
 
-const AttachmentLines = ({index, name, year, title, closeButtonFunction, lineType, page, path}: any) => {
+const AttachmentLines = ({index, name, year, title, closeButtonFunction, path}: any) => {
 
     return (
 
@@ -16,17 +16,13 @@ const AttachmentLines = ({index, name, year, title, closeButtonFunction, lineTyp
                 {title && (<Text textColor={"gray"}>{title}</Text>)}
                 {path && (<Text textColor={"gray"}>{path}</Text>)}
             </HStack>
-            {page == 'add_new_project' || 'register-page' ? (
-                <Box me={"5px"} justifyContent={"flex-end"} alignItems={"center"} display={"flex"} flex={0.5}>
-                    <CloseButton onClick={() => {
-                        closeButtonFunction(index, lineType)
-                    }} color={"#747474"} w={3} h={3}/>
-                </Box>
-            ) : null}
-            {/*{ page == 'user_project_view' && null}*/}
-
+            <Box me={"5px"} justifyContent={"flex-end"} alignItems={"center"} display={"flex"} flex={0.5}>
+                <CloseButton onClick={() => {
+                    closeButtonFunction(index)
+                }} color={"#747474"} w={3} h={3}/>
+            </Box>
         </Flex>
     )
 }
 
-export default AttachmentLines
+export default React.memo(AttachmentLines)
