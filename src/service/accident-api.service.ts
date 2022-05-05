@@ -7,7 +7,7 @@ const AccidentApiService = createApi({
         reducerPath: "AccidentApiService",
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_URL + "api/",
-        credentials: "include"
+        credentials: "include",
     }),
     tagTypes: ['GetAccidentList'],
     endpoints: build => ({
@@ -16,7 +16,17 @@ const AccidentApiService = createApi({
                         doc
                     }: any) => `${doc}`,
             providesTags: ['GetAccidentList']
-        })
+        }),
+        create: build.mutation<any, any>({
+            query: ({
+                        doc,
+                        payload
+                    }: any) => ({
+                url: `${doc}`,
+                method: 'POST',
+                body: payload,
+            }),
+        }),
     })
 })
 

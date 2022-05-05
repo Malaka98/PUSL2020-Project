@@ -1,11 +1,9 @@
 import {AppDispatch} from "../../../store/store";
-import {ResourceApiService} from "../../../service/resource-api.service";
 import AccidentApiService from "../../../service/accident-api.service";
 
 export const AddAccidentReportAction = (doc: String, payload: any) => {
-
     return async (dispatch: AppDispatch) => {
-        const {error, data}: any = await dispatch(ResourceApiService.endpoints.create.initiate({
+        const {error, data}: any = await dispatch(AccidentApiService.endpoints.create.initiate({
             doc: doc,
             payload: payload
         }))

@@ -29,7 +29,7 @@ const AccidentReportPage = () => {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
     const {isOpen: isAwardOpen, onOpen: onAwardOpen, onClose: onAwardClose} = useDisclosure();
-    const [attachment, setAttachment] = useState<any>([])
+    const [attachment, setAttachment] = useState<Array<any>>([])
     // const dispatch: AppDispatch = useDispatch()
     // const [accidentData, setAccidentData] = useState<Array<any>>([])
 
@@ -128,10 +128,18 @@ const AccidentReportPage = () => {
 
             AddAccidentReportSchema.validate(form, {abortEarly: false}).then(
                 async (result) => {
+                    const formData = new FormData()
                     setErrorMessage({})
                     setIsLoading(true)
-                    // await dispatch(ResourceApiService.util.invalidateTags(['Get']))
-                    const response = await dispatch(AddAccidentReportAction("accident", result))
+
+                    formData.append("location", result.location)
+                    formData.append("description", result.description)
+                    formData.append("vehicleNumber", result.vehicleNumber)
+                    formData.append("vehicleType", result.vehicleType)
+                    attachment.forEach((item: any) => {
+                        formData.append("files", item)
+                    })
+                    const response = await dispatch(AddAccidentReportAction("accident/multiple/upload", formData))
                     console.log(response)
                     setIsLoading(false)
                     toast({
