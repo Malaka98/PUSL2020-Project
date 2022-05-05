@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {
     Box,
     Button, FormControl, FormLabel, Grid, GridItem,
@@ -20,7 +20,6 @@ import {AddAccidentReportSchema} from "./schema/add-accident-report.schema";
 import {AddAccidentReportAction} from "./actions/add-accident-report.action";
 import {AppDispatch} from "../../store/store";
 import {useGetAccidentListQuery} from "../../service/accident-api.service";
-import AddPhotosComponent from "./components/add-photos.component";
 import {useConfirmation} from "../../components/dialog-box/alert-provider";
 import ShowAttachments from "./components/show-attachment.component";
 import AddNewAttachment from "./components/add-new-attachment.component";
@@ -28,7 +27,6 @@ import AddAwardsModel from "./components/add-attachment-model.component";
 
 const AccidentReportPage = () => {
 
-    let id: any
     const {isOpen, onOpen, onClose} = useDisclosure();
     const {isOpen: isAwardOpen, onOpen: onAwardOpen, onClose: onAwardClose} = useDisclosure();
     const [attachment, setAttachment] = useState<any>([])
@@ -167,7 +165,7 @@ const AccidentReportPage = () => {
                 title: "Are you sure you want to remove this attachment?",
             }).then(() => {
                 const filteredList = attachment.filter((item: any) => {
-                    return attachment.indexOf(item) != index
+                    return attachment.indexOf(item) !== index
                 })
                 setAttachment([...filteredList])
             })
