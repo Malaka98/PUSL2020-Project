@@ -121,7 +121,7 @@ const DashboardPage = () => {
 
                 <Stack borderRadius={8} shadow={"md"} bg={"white"} p={2} pe={6} h={400}>
                     <HStack m={3}>
-                        <Heading size={"sm"}>Patent Applications</Heading>
+                        <Heading size={"sm"}>Vehicle Accident</Heading>
                     </HStack>
                     <BarChartNoPadding/>
                 </Stack>

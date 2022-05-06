@@ -151,9 +151,9 @@ const AddNewAccidentReportComponent = ({attachment, setAttachment, modelMethods}
                                     placeholder='Select Vehicle Type'>
                                 <option value="bike">Bike</option>
                                 <option value="car">Car</option>
-                                <option value="Van">Van</option>
+                                <option value="van">Van</option>
                                 <option value="bus">Bus</option>
-                                <option value="Lorry">Lorry</option>
+                                <option value="lorry">Lorry</option>
                             </Select>
                             {errorMessage.vehicleType ?
                                 <span><Text color='red'
