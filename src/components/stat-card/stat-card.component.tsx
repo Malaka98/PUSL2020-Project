@@ -18,11 +18,12 @@ export interface StatCardProps {
         label: string
         value: string | number
         path: any
+        percentage: string | number
     }
 }
 
 export const StatCard = (props: StatCardProps) => {
-    const {label, value, path} = props.data
+    const {label, value, path, percentage} = props.data
     const navigate = useNavigate()
 
     function clickHandler() {
@@ -45,7 +46,7 @@ export const StatCard = (props: StatCardProps) => {
                         <StatNumber>{value}</StatNumber>
                         <StatHelpText>
                             <StatArrow type='increase' />
-                            23.36%
+                            {percentage}
                         </StatHelpText>
                     </Stat>
                 </StatGroup>

@@ -8,47 +8,41 @@ import React, {useState} from "react";
 import SimpleLineChart from "../../components/charts/simple-line-chart.component";
 import RichPieChart from "../../components/charts/pie-chart.component";
 import BarChartNoPadding from "../../components/charts/bar-chart-no-padding.component";
+import {useGetQuery} from "../../service/resource-api.service";
 
 const DashboardPage = () => {
-    // const dispatch = useDispatch()
-    const [receivedApps, setReceivedApp] = useState(0)
-    const [approvedApps, setApprovedApp] = useState(0)
-    const [pendingApps, setPendingApp] = useState(0)
-    const [rejectedApps, setRejectedApp] = useState(0)
-    // useEffect(() => {
-    //     getValues()
-    // }, [])
 
-    // async function getValues() {
-    //     const receivedApp = await dispatch(getReceivedApplications())
-    //     setReceivedApp(receivedApp.length)
-    //     const approvedApp = await dispatch(getApprovedApplicationsAction())
-    //     setApprovedApp(approvedApp.length)
-    //     const pendingApp = await dispatch(getPendingApplicationsAction())
-    //     setPendingApp(pendingApp.length)
-    //     const rejectedApp = await dispatch(getRejectedApplicationsAction())
-    //     setRejectedApp(rejectedApp.length)
-    // }
+    const {isLoading, data} = useGetQuery({doc: "get_card_details"})
 
-    const data: any = [
+    // const [receivedApps, setReceivedApp] = useState(0)
+    // const [approvedApps, setApprovedApp] = useState(0)
+    // const [pendingApps, setPendingApp] = useState(0)
+    // const [rejectedApps, setRejectedApp] = useState(0)
+
+
+    const cardData: any = [
         {
-            label: 'Received User Registration Applications',
-            value: receivedApps,
+            label: 'Registered User',
+            value: data?.registeredUser,
+            percentage: data?.registeredUserPercentage,
             path: '/app/application/received'
         },
         {
-            label: 'Approved User Registration Applications',
-            value: approvedApps,
+            label: 'Approved Accident Report',
+            value: data?.approvedAccident,
+            percentage: data?.approvedPercentage,
             path: '/app/application/approved'
         },
         {
-            label: 'Pending User Registration Applications',
-            value: pendingApps,
+            label: 'Pending Accident Report',
+            value: data?.pendingAccident,
+            percentage: data?.pendingPercentage,
             path: '/app/application/pending'
         },
         {
-            label: 'Rejected User Registration Applications',
-            value: rejectedApps,
+            label: 'Rejected Accident Report',
+            value: data?.rejectedAccident,
+            percentage: data?.rejectedPercentage,
             path: '/app/application/rejected'
         }
     ]
@@ -57,7 +51,7 @@ const DashboardPage = () => {
         <Box>
             <Stack w={'100%'}>
                 <SimpleGrid columns={{base: 1, md: 2, xl: 4}} spacing="6">
-                    {data.map((stat: any, idx: any) => (
+                    {cardData.map((stat: any, idx: any) => (
                         <StatCard key={idx} data={stat}/>
                     ))}
                 </SimpleGrid>
