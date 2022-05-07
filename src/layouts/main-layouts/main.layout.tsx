@@ -1,4 +1,4 @@
-import React, {ReactText} from 'react';
+import React, {ReactText, useEffect} from 'react';
 import {Box, BoxProps, Flex, FlexProps, Icon, Link, Spinner, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
 import {IconType} from 'react-icons';
 import Header from "../../components/header/header.component";
@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useGetQuery} from "../../service/resource-api.service";
 
 import {Navigate} from "react-router-dom";
+import {AppDispatch} from "../../store/store";
+import {MainLayoutAction} from "./actions/main-layout.action";
 
 interface LinkItemProps {
     name: string;
@@ -19,6 +21,16 @@ const MainLayout = () => {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
     const {isLoading, isSuccess, isError} = useGetQuery({"doc": "validate"})
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        getSideNavItem()
+    }, [])
+
+    function getSideNavItem() {
+        dispatch(MainLayoutAction())
+    }
+
     return (
         <>
             {isLoading ? <h1>Loading...</h1> : isSuccess ? <>

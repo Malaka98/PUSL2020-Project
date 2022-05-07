@@ -5,7 +5,8 @@ import {
     Flex,
     HStack,
     Icon,
-    IconButton, Image,
+    IconButton,
+    Image,
     Input,
     InputGroup,
     InputLeftElement,
@@ -36,7 +37,6 @@ import {useEffect} from "react";
 // import {NavItemsActions, SideNavItemsAction} from "../../layouts/main-layout/actions/nav-items.actions";
 import HeaderFactory from "./header-factory";
 import {useConfirmation} from "../dialog-box/alert-provider";
-import {getSideNavItems, showSpinner} from "../../store/common/sideNavItemSlice";
 import {AppDispatch} from "../../store/store";
 
 const Header = () => {
