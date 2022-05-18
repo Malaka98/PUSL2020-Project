@@ -8,7 +8,7 @@ import {
     GridItem,
     Heading,
     Image,
-    SimpleGrid,
+    SimpleGrid, Spacer,
     Stack,
     Tab,
     TabList,
@@ -23,41 +23,29 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import ChatItemComponent from "./components/chat-item.component";
 import {AppDispatch, RootState} from "../../store/store";
+import {useNavigate} from "react-router-dom";
 
 const AccidentViewPage = () => {
 
     const dispatch: AppDispatch = useDispatch()
+    const navigate = useNavigate()
     const view = useSelector<RootState, any>(
         state => state.viewAccident.item
     )
     console.log("==================>>>>>>>", view)
-    // const get = async () => {
-    //     // try {
-    //     //     const doc = getDoc(docTypes, meta?.publication_id.toString())
-    //     //     const response = await dispatch(getPublication(doc, meta?.publication_id.toString()))
-    //     //     // console.log("*****************************>", response.data)
-    //     //     setView(response.data)
-    //     // } catch (e: any) {
-    //     //     console.log("Exception Error>>>>>>", e)
-    //     // }
-    // }
-    //
-    // useEffect(() => {
-    //     get().catch(error => {
-    //         console.log(error)
-    //     })
-    // }, [meta])
+
+    if (Object.keys(view).length === 0) navigate("app/accidentreport")
 
     return (
         <>
-            <div className={'flex bg-[#F8F8F8]'}>
+            {Object.keys(view).length !== 0 ? <div className={'flex bg-[#F8F8F8]'}>
                 <Box width={"100%"} mb={20}>
                     <Flex>
                         <Container maxW='container.lg' mt={4}>
                             <Tabs variant={"unstyled"} p={0}>
                                 <Stack direction={{base: "column", md: 'row'}} justifyContent={{md: 'space-between'}}
                                        spacing={{base: '5'}}>
-                                    <Heading size={'md'}>Project Status</Heading>
+                                    <Heading size={'md'}>{`Project Status: ${view?.approved}`}</Heading>
                                     <TabList borderBottom={'none'} justifyContent={{base: 'center', md: 'end'}}>
                                         <Tab fontWeight={"semibold"} fontSize='md' textColor={"#505050"} py={1} me={3}
                                              _focus={{
@@ -83,52 +71,59 @@ const AccidentViewPage = () => {
                                 <TabPanels mt={4}>
                                     <TabPanel p={0}>
                                         <Box borderRadius={5} boxShadow={'lg'} p={4} bg={'white'} width={'100%'}>
-                                            {/*<Stack direction={{base: 'column', sm: 'row'}}>*/}
-                                            {/*    <Image src={view?.url[0]} alt='image'*/}
-                                            {/*           w={{base: "100%", md: 400}}*/}
-                                            {/*           h={200}*/}
-                                            {/*           borderColor={"#E4E4E4"} borderWidth={"1px"} borderRadius={"5px"}*/}
-                                            {/*           objectFit={'cover'}/>*/}
-                                                <VStack alignItems={'start'} width={'100%'} alignSelf={'start'} ps={2}>
-                                                    <Flex width={'100%'}>
-                                                        <SimpleGrid columns={2} width={'100%'}>
-                                                            <Box>
-                                                                <Text fontWeight={500} textTransform={'uppercase'}
-                                                                      color={'#8C8C8C'}>Project ID</Text>
-                                                                <Text fontWeight={500}
-                                                                      textStyle={'uppercase'}>{view?.name}</Text>
-                                                            </Box>
-                                                            <Box>
-                                                                <Text fontWeight={500} textTransform={'uppercase'}
-                                                                      color={'#8C8C8C'}>Submitted</Text>
-                                                                <Badge backgroundColor={"#B3F1FF"}>{view?.approved}</Badge>
-                                                            </Box>
-                                                        </SimpleGrid>
-                                                    </Flex>
-                                                    <Stack>
-                                                        <Text fontWeight={500} textTransform={'uppercase'}
-                                                              color={'#8C8C8C'}>Currently
-                                                            in</Text>
-                                                        <Badge backgroundColor={"#B3F1FF"}>Department of xyz</Badge>
-                                                    </Stack>
-                                                    <Text fontWeight={500} textStyle={'uppercase'}
-                                                          color={'#8C8C8C'}>NOTES</Text>
-                                                    <Flex w={'100%'} justifyContent={'center'}>
-                                                        <Wrap>
-                                                            {
-                                                                view?.url.map((item: any, index: number) => (
-                                                                    <Image src={item} alt='image'
-                                                                           w={{base: "100%", md: 200}}
-                                                                           m={2}
-                                                                           h={150}
-                                                                           borderColor={"#E4E4E4"} borderWidth={"1px"} borderRadius={"5px"}
-                                                                           objectFit={'cover'}/>
-                                                                ))
-                                                            }
-                                                        </Wrap>
-                                                    </Flex>
-                                                </VStack>
-                                            {/*</Stack>*/}
+                                            <VStack alignItems={'start'} width={'100%'} alignSelf={'start'} ps={2}>
+                                                <Flex width={'100%'}>
+                                                    <SimpleGrid columns={2} width={'100%'}>
+                                                        <Box>
+                                                            <Text fontWeight={500} textTransform={'uppercase'}
+                                                                  color={'#8C8C8C'}>Location</Text>
+                                                            <Text fontWeight={500}
+                                                                  textStyle={'uppercase'}>{view?.location}</Text>
+                                                        </Box>
+                                                    </SimpleGrid>
+                                                </Flex>
+
+                                                <Stack direction={"row"}>
+                                                    <Wrap>
+                                                        <Stack>
+                                                            <Text fontWeight={500} textTransform={'uppercase'}
+                                                                  color={'#8C8C8C'}>Vehicle Number</Text>
+                                                            <Badge backgroundColor={"#B3F1FF"}>{view?.vehicleNumber}</Badge>
+                                                        </Stack>
+                                                        <Stack>
+                                                            <Text fontWeight={500} textTransform={'uppercase'}
+                                                                  color={'#8C8C8C'}>Vehicle Type</Text>
+                                                            <Badge backgroundColor={"#B3F1FF"}>{view?.vehicleType}</Badge>
+                                                        </Stack>
+                                                        <Spacer />
+                                                        <Spacer />
+                                                        <Spacer />
+                                                        <Spacer />
+                                                        <Spacer />
+                                                        <Spacer />
+                                                        <Stack>
+                                                            <Text fontWeight={500} textTransform={'uppercase'}
+                                                                  color={'#8C8C8C'} >Description</Text>
+                                                            <Badge backgroundColor={"#B3F1FF"}>{view?.description}</Badge>
+                                                        </Stack>
+                                                    </Wrap>
+                                                </Stack>
+                                            </VStack>
+                                            <Flex w={'100%'} justifyContent={'center'} mt={10}>
+                                                <Wrap>
+                                                    {
+                                                        view?.url.map((item: any, index: number) => (
+                                                            <Image src={item} alt='image' key={index}
+                                                                   w={{base: "100%", md: 200}}
+                                                                   m={2}
+                                                                   h={150}
+                                                                   borderColor={"#E4E4E4"} borderWidth={"1px"}
+                                                                   borderRadius={"5px"}
+                                                                   objectFit={'cover'}/>
+                                                        ))
+                                                    }
+                                                </Wrap>
+                                            </Flex>
                                         </Box>
                                     </TabPanel>
 
@@ -165,7 +160,7 @@ const AccidentViewPage = () => {
                         </Container>
                     </Flex>
                 </Box>
-            </div>
+            </div> : null}
         </>
     )
 }
