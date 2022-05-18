@@ -5,7 +5,7 @@ import Header from "../../components/header/header.component";
 import {Link as ReachLink, Outlet} from 'react-router-dom';
 import {COLORS, SIZES} from "../../assets/theme/theme";
 import {useDispatch, useSelector} from "react-redux";
-import {useGetQuery} from "../../service/resource-api.service";
+import {useCreateMutation} from "../../service/resource-api.service";
 
 import {Navigate} from "react-router-dom";
 import {AppDispatch} from "../../store/store";
@@ -20,10 +20,11 @@ interface LinkItemProps {
 const MainLayout = () => {
 
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const {isLoading, isSuccess, isError} = useGetQuery({"doc": "validate"})
+    const [validate, {isLoading, isSuccess, isError}] = useCreateMutation()
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
+        validate({"doc": "validate"})
         getSideNavItem()
     }, [])
 
