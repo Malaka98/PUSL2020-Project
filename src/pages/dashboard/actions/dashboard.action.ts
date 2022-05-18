@@ -8,6 +8,11 @@ export const getDashboardItem = () => {
 
         let cardDataList: Array<any> = []
 
+        const {error: dashboardCheckError, data: dashboardCheckData, isSuccess}: any = await dispatch(ResourceApiService.endpoints.create.initiate({
+            doc: "validate_dashboard"
+        }))
+
+
         const {error, data}: any = await dispatch(ResourceApiService.endpoints.get.initiate({
             doc: "get_card_details"
         }))
@@ -42,6 +47,7 @@ export const getDashboardItem = () => {
 
             dispatch(getCardItem(cardDataList))
         }
+        return dashboardCheckData ? {status: 'success'} : {status: 'error'}
     }
 
 
