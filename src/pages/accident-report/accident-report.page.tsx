@@ -1,37 +1,34 @@
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import {
     Box,
-    Button, FormControl, FormLabel, Grid, GridItem,
+    Button,
     Input,
     InputGroup,
     Menu,
     MenuButton,
     MenuItem,
-    MenuList, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select,
-    Stack, Text,
-    useDisclosure, useToast
+    MenuList,
+    Stack,
+    useDisclosure
 } from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
 import PageHeader from "../../components/page-header/page-header.component";
 import TableComponent from "../../components/table/table.component";
-import {useDispatch} from "react-redux";
-import useInput from "../../hooks/use-input.hook";
-import {AddAccidentReportSchema} from "./schema/add-accident-report.schema";
-import {AddAccidentReportAction} from "./actions/add-accident-report.action";
-import {AppDispatch} from "../../store/store";
 import {useGetAccidentListQuery} from "../../service/accident-api.service";
-import {useConfirmation} from "../../components/dialog-box/alert-provider";
-import ShowAttachments from "./components/show-attachment.component";
-import AddNewAttachment from "./components/add-new-attachment.component";
 import AddAwardsModel from "./components/add-attachment-model.component";
 import AddNewAccidentReportComponent from "./components/add-new-accident-report.component";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../store/store";
+import {getAccidentViewItems} from "../../store/common/viewAccidentSlice";
+import {useNavigate} from "react-router-dom";
 
 const AccidentReportPage = () => {
 
+    const dispatch: AppDispatch = useDispatch()
+    const navigate = useNavigate()
     const {isOpen, onOpen, onClose} = useDisclosure();
     const {isOpen: isAwardOpen, onOpen: onAwardOpen, onClose: onAwardClose} = useDisclosure();
     const [attachment, setAttachment] = useState<Array<any>>([])
-    // const dispatch: AppDispatch = useDispatch()
     // const [accidentData, setAccidentData] = useState<Array<any>>([])
 
     const {isLoading, data} = useGetAccidentListQuery({"doc": "accident"})
@@ -47,75 +44,10 @@ const AccidentReportPage = () => {
     // if(data) {
     //     setAccidentData(data)
     // }
-
-    const COLUMN = [
-        {
-            header: "Location",
-            accessor: "location",
-        },
-        {
-            header: "Description",
-            accessor: "description",
-        },
-        {
-            header: "Vehicle Number",
-            accessor: "vehicleNumber"
-        },
-        {
-            header: "Vehicle",
-            accessor: "vehicleType"
-        },
-        {
-            header: "Status",
-            accessor: "approved",
-            condition: {
-                Approved: "green",
-                Pending: "yellow",
-                Reject: "red"
-            }
-        },
-        {
-            header: "Actions",
-            options: [
-                {
-                    label: "Add Photos",
-                    action: function (rowItem: any) {
-                        console.log(rowItem)
-                    }
-                },
-                {
-                    label: "Payments",
-                    action: function (rowItem: any) {
-                        console.log(rowItem)
-                    }
-                },
-                {
-                    label: "Block",
-                    action: function (rowItem: any) {
-                        console.log(rowItem)
-                    }
-                },
-            ]
-        }
-    ]
-
-    // const rowData = [
-    //     {
-    //         location: "Lorem",
-    //         description: "Lorem",
-    //         vehicleNumber: "Lorem",
-    //         vehicleType: "Lorem",
-    //         approved: "Approved"
-    //     },
-    //     {
-    //         location: "Lorem",
-    //         description: "Lorem",
-    //         vehicleNumber: "Lorem",
-    //         vehicleType: "Lorem",
-    //         approved: "Pending"
-    //     }
-    // ]
-
+    const onSelected = (data: any) => {
+        dispatch(getAccidentViewItems(data))
+        navigate("/app/view_accident")
+    }
     return (
         <>
             <PageHeader primaryActionName="Add New Department" primaryAction={() => {
@@ -155,7 +87,7 @@ const AccidentReportPage = () => {
                 </Stack>
             </Box>
 
-            <TableComponent columns={COLUMN} data={data}/>
+            <TableComponent columns={COLUMN} data={data} onSelected = {onSelected}/>
 
             <AddNewAccidentReportComponent attachment={attachment} setAttachment={setAttachment}
                                            modelMethods={{
@@ -174,5 +106,66 @@ const AccidentReportPage = () => {
         </>
     )
 }
+
+const COLUMN = [
+    {
+        header: "Location",
+        accessor: "location",
+    },
+    {
+        header: "Description",
+        accessor: "description",
+    },
+    {
+        header: "Vehicle Number",
+        accessor: "vehicleNumber"
+    },
+    {
+        header: "Vehicle",
+        accessor: "vehicleType"
+    },
+    {
+        header: "Status",
+        accessor: "approved",
+        condition: {
+            Approved: "green",
+            Pending: "yellow",
+            Reject: "red"
+        }
+    },
+    // {
+    //     header: "Actions",
+    //     options: [
+    //         {
+    //             label: "Add Photos",
+    //             action: function (rowItem: any) {
+    //                 console.log(rowItem)
+    //             }
+    //         },
+    //         {
+    //             label: "Payments",
+    //             action: function (rowItem: any) {
+    //                 console.log(rowItem)
+    //             }
+    //         },
+    //         {
+    //             label: "Block",
+    //             action: function (rowItem: any) {
+    //                 console.log(rowItem)
+    //             }
+    //         },
+    //     ]
+    // }
+]
+
+// const rowData = [
+//     {
+//         location: "Lorem",
+//         description: "Lorem",
+//         vehicleNumber: "Lorem",
+//         vehicleType: "Lorem",
+//         approved: "Approved"
+//     },
+// ]
 
 export default AccidentReportPage

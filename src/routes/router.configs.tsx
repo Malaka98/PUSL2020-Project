@@ -4,6 +4,7 @@ import MainLayout from "../layouts/main-layouts/main.layout";
 import DashboardPage from "../pages/dashboard/dashboard.page";
 import AccidentReportPage from "../pages/accident-report/accident-report.page";
 import {RegisterPage} from "../pages/register-page/register.page";
+import AccidentViewPage from "../pages/view-accident/accident-view.page";
 
 const RouterConfigs = () => {
     return useRoutes([
@@ -22,6 +23,10 @@ const RouterConfigs = () => {
                 {
                     path: '/app/accidentreport',
                     element: <AccidentReportPage />
+                },
+                {
+                    path: '/app/view_accident',
+                    element: <AccidentViewPage />
                 }
             ]
         },
