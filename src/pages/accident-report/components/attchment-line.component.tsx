@@ -1,5 +1,4 @@
-import {Box, Flex, HStack, Text} from "@chakra-ui/react";
-import {CloseButton} from "@chakra-ui/react";
+import {Box, CloseButton, Flex, HStack, Text} from "@chakra-ui/react";
 import React from "react";
 
 const AttachmentLines = ({index, name, year, title, closeButtonFunction, path}: any) => {

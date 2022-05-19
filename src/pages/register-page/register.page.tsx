@@ -9,7 +9,8 @@ import {
     SimpleGrid,
     Stack,
     Text,
-    Textarea, useToast
+    Textarea,
+    useToast
 } from "@chakra-ui/react";
 import React, {useState} from "react";
 import useInput from "../../hooks/use-input.hook";
@@ -100,7 +101,8 @@ export const RegisterPage = () => {
                                         autoComplete="given-name"
                                     />
                                     {errorMessage.username ?
-                                        <span><Text color='red' fontSize='sm'>{errorMessage.username}</Text></span> : null}
+                                        <span><Text color='red'
+                                                    fontSize='sm'>{errorMessage.username}</Text></span> : null}
                                 </FormControl>
                             </SimpleGrid>
 
@@ -109,28 +111,28 @@ export const RegisterPage = () => {
                                     <FormLabel>Password</FormLabel>
                                     <Input onChange={handleOnChange} type="password" name="password" id="password"/>
                                     {errorMessage.password ? <span><Text color='red'
-                                                                                    fontSize='sm'>{errorMessage.password}</Text></span> : null}
+                                                                         fontSize='sm'>{errorMessage.password}</Text></span> : null}
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>Email</FormLabel>
                                     <Input onChange={handleOnChange} type="text" name="email" id="email"
                                            autoComplete="given-name"/>
                                     {errorMessage.email ? <span><Text color='red'
-                                                                                    fontSize='sm'>{errorMessage.email}</Text></span> : null}
+                                                                      fontSize='sm'>{errorMessage.email}</Text></span> : null}
                                 </FormControl>
                             </SimpleGrid>
 
-                                <FormControl>
-                                    <FormLabel>Address</FormLabel>
-                                    <Textarea onChange={handleOnChange} name="address" id="address"
-                                              autoComplete="given-name" />
-                                    {errorMessage.address ? <span><Text color='red'
-                                                                                    fontSize='sm'>{errorMessage.address}</Text></span> : null}
-                                </FormControl>
+                            <FormControl>
+                                <FormLabel>Address</FormLabel>
+                                <Textarea onChange={handleOnChange} name="address" id="address"
+                                          autoComplete="given-name"/>
+                                {errorMessage.address ? <span><Text color='red'
+                                                                    fontSize='sm'>{errorMessage.address}</Text></span> : null}
+                            </FormControl>
                             <Stack direction={"row"} mt={5} justifyContent={"flex-end"}>
                                 <Button colorScheme={"blue"}>Cancel</Button>
                                 <Button colorScheme={"blue"} isLoading={isLoading} loadingText="Processing"
-                                       onClick={RegisterActionHandler} spinnerPlacement="start">Register</Button>
+                                        onClick={RegisterActionHandler} spinnerPlacement="start">Register</Button>
                             </Stack>
                         </Box>
 

@@ -2,12 +2,10 @@ import React, {ReactText, useEffect} from 'react';
 import {Box, BoxProps, Flex, FlexProps, Icon, Link, Spinner, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
 import {IconType} from 'react-icons';
 import Header from "../../components/header/header.component";
-import {Link as ReachLink, Outlet} from 'react-router-dom';
+import {Link as ReachLink, Navigate, Outlet} from 'react-router-dom';
 import {COLORS, SIZES} from "../../assets/theme/theme";
 import {useDispatch, useSelector} from "react-redux";
 import {useCreateMutation} from "../../service/resource-api.service";
-
-import {Navigate} from "react-router-dom";
 import {AppDispatch} from "../../store/store";
 import {MainLayoutAction} from "./actions/main-layout.action";
 
@@ -50,7 +48,7 @@ const MainLayout = () => {
                     </Box>
                 </Box>
             </> : null}
-            {isError ? <Navigate to={"/"} /> : null}
+            {isError ? <Navigate to={"/"}/> : null}
         </>
     );
 }

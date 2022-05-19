@@ -1,8 +1,7 @@
 import UserService from "../../../service/user.service";
 
 import {hideLoading, showLoading} from "../../../store/common/commonSlice";
-import {showAlert, hideAlert} from '../../../store/common/alertSlice'
-import ShowToast from "./show-toast";
+import {showAlert} from '../../../store/common/alertSlice'
 
 const loginAction = (form: any, navigate: any) => {
 
@@ -13,8 +12,8 @@ const loginAction = (form: any, navigate: any) => {
 
 
     const getDoc = (keyList: Object, type: string): string => {
-            const key = Object.keys(keyList).find(item => item === type.split("-")[0])
-            // @ts-ignore
+        const key = Object.keys(keyList).find(item => item === type.split("-")[0])
+        // @ts-ignore
         return keyList[key]
     }
 
@@ -27,7 +26,7 @@ const loginAction = (form: any, navigate: any) => {
 
         console.log("user", data)
         data?.user_role.forEach((item: any) => {
-            if(data?.user_role.includes(item)) {
+            if (data?.user_role.includes(item)) {
                 path = getDoc(pathList, item)
             }
         })
@@ -35,8 +34,7 @@ const loginAction = (form: any, navigate: any) => {
 
         if (!error) {
             navigate(path)
-        }
-        else dispatch(showAlert())
+        } else dispatch(showAlert())
 
         return data ? {status: 'success'} : {status: 'error'}
     }

@@ -1,6 +1,4 @@
-import {
-    Td, Text, Tr, Badge, Center, HStack, Menu, MenuButton, MenuList, MenuItem
-} from "@chakra-ui/react";
+import {Badge, Center, HStack, Menu, MenuButton, MenuItem, MenuList, Td, Text, Tr} from "@chakra-ui/react";
 import {FaEllipsisH} from "react-icons/fa";
 import React from 'react';
 

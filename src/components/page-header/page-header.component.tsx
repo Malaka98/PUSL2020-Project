@@ -41,7 +41,7 @@ const PageHeader = (props: any) => {
                 <Spacer/>
                 <Stack direction={'row'} spacing={2}>
                     <Button variant='primary' size='sm' onClick={props.primaryAction}>
-                        { props.primaryActionName ? props.primaryActionName : 'Primary Action' }
+                        {props.primaryActionName ? props.primaryActionName : 'Primary Action'}
                     </Button>
                     <Button variant="solid" size='sm'>
                         Default

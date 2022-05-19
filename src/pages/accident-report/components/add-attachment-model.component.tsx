@@ -1,16 +1,18 @@
 import {useDispatch} from "react-redux";
 import {
-    Box, Button,
+    Box,
+    Button,
     FormLabel,
     Modal,
     ModalBody,
-    ModalContent, ModalFooter,
+    ModalContent,
+    ModalFooter,
     ModalHeader,
-    ModalOverlay, Text, useToast
+    ModalOverlay,
+    Text,
+    useToast
 } from "@chakra-ui/react";
 import React, {useState} from "react";
-import * as yup from "yup";
-import useInput from "../../../hooks/use-input.hook";
 
 let file: any
 const AddAwardsModel = ({attachment, setAttachment, modelMethods}: any) => {

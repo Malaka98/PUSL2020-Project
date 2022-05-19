@@ -4,14 +4,19 @@ import {AppDispatch} from "../../../store/store";
 import {useDispatch} from "react-redux";
 import {
     Button,
-    FormControl, FormLabel,
+    FormControl,
+    FormLabel,
     Grid,
-    GridItem, Input,
+    GridItem,
+    Input,
     Modal,
     ModalBody,
-    ModalContent, ModalFooter,
+    ModalContent,
+    ModalFooter,
     ModalHeader,
-    ModalOverlay, Select, Text,
+    ModalOverlay,
+    Select,
+    Text,
     useToast
 } from "@chakra-ui/react";
 import {useConfirmation} from "../../../components/dialog-box/alert-provider";
@@ -93,7 +98,8 @@ const AddNewAccidentReportComponent = ({attachment, setAttachment, modelMethods}
     // }
 
     return (
-        <Modal closeOnOverlayClick={false} size="lg" isOpen={modelMethods.isOpen} onClose={modelMethods.onClose} isCentered>
+        <Modal closeOnOverlayClick={false} size="lg" isOpen={modelMethods.isOpen} onClose={modelMethods.onClose}
+               isCentered>
             <ModalOverlay/>
             <ModalContent>
                 <ModalHeader>Add Accident Report</ModalHeader>

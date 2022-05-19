@@ -23,21 +23,21 @@ const RouterConfigs = () => {
                 },
                 {
                     path: '/app/accidentreport',
-                    element: <AccidentReportPage />
+                    element: <AccidentReportPage/>
                 },
                 {
                     path: '/app/view_accident',
-                    element: <AccidentViewPage />
+                    element: <AccidentViewPage/>
                 },
                 {
                     path: '/app/accident_list',
-                    element: <AccidentListPage />
+                    element: <AccidentListPage/>
                 }
             ]
         },
         {
             path: "/register",
-            element: <RegisterPage />
+            element: <RegisterPage/>
         },
         {path: "*", element: <h1>page not found</h1>},
     ]);

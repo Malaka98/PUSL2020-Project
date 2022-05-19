@@ -23,7 +23,7 @@ const useInput = () => {
         setFormData(_form)
     }
 
-    return {form, handleOnChange, handleOnChangeForValue, clearAllFields , handleCheckBoxOnChange , setFormData}
+    return {form, handleOnChange, handleOnChangeForValue, clearAllFields, handleCheckBoxOnChange, setFormData}
 }
 
 export default useInput

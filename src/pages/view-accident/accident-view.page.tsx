@@ -8,7 +8,8 @@ import {
     GridItem,
     Heading,
     Image,
-    SimpleGrid, Spacer,
+    SimpleGrid,
+    Spacer,
     Stack,
     Tab,
     TabList,
@@ -17,7 +18,8 @@ import {
     Tabs,
     Text,
     Textarea,
-    VStack, Wrap,
+    VStack,
+    Wrap,
 } from "@chakra-ui/react";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -32,7 +34,6 @@ const AccidentViewPage = () => {
     const view = useSelector<RootState, any>(
         state => state.viewAccident.item
     )
-    console.log("==================>>>>>>>", view)
 
     if (Object.keys(view).length === 0) navigate("app/accidentreport")
 
@@ -88,23 +89,26 @@ const AccidentViewPage = () => {
                                                         <Stack>
                                                             <Text fontWeight={500} textTransform={'uppercase'}
                                                                   color={'#8C8C8C'}>Vehicle Number</Text>
-                                                            <Badge backgroundColor={"#B3F1FF"}>{view?.vehicleNumber}</Badge>
+                                                            <Badge
+                                                                backgroundColor={"#B3F1FF"}>{view?.vehicleNumber}</Badge>
                                                         </Stack>
                                                         <Stack>
                                                             <Text fontWeight={500} textTransform={'uppercase'}
                                                                   color={'#8C8C8C'}>Vehicle Type</Text>
-                                                            <Badge backgroundColor={"#B3F1FF"}>{view?.vehicleType}</Badge>
+                                                            <Badge
+                                                                backgroundColor={"#B3F1FF"}>{view?.vehicleType}</Badge>
                                                         </Stack>
-                                                        <Spacer />
-                                                        <Spacer />
-                                                        <Spacer />
-                                                        <Spacer />
-                                                        <Spacer />
-                                                        <Spacer />
+                                                        <Spacer/>
+                                                        <Spacer/>
+                                                        <Spacer/>
+                                                        <Spacer/>
+                                                        <Spacer/>
+                                                        <Spacer/>
                                                         <Stack>
                                                             <Text fontWeight={500} textTransform={'uppercase'}
-                                                                  color={'#8C8C8C'} >Description</Text>
-                                                            <Badge backgroundColor={"#B3F1FF"}>{view?.description}</Badge>
+                                                                  color={'#8C8C8C'}>Description</Text>
+                                                            <Badge
+                                                                backgroundColor={"#B3F1FF"}>{view?.description}</Badge>
                                                         </Stack>
                                                     </Wrap>
                                                 </Stack>

@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react';
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import React from 'react';
+import {Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import {useGetQuery} from "../../service/resource-api.service";
 import {Center, Spinner} from "@chakra-ui/react";
 

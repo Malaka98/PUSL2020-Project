@@ -8,7 +8,11 @@ export const AddAccidentReportAction = (doc: String, payload: any) => {
             payload: payload
         }))
         await dispatch(AccidentApiService.util.invalidateTags(['GetAccidentList']))
-        if (!error) { return {status: 'success', data: data}} else { return {status: 'error'}}
+        if (!error) {
+            return {status: 'success', data: data}
+        } else {
+            return {status: 'error'}
+        }
     }
 }
 

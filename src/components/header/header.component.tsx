@@ -273,11 +273,11 @@ const MobileNavItem = ({label, children, href}: NavItem) => {
                     borderColor={useColorModeValue('gray.200', 'gray.700')}
                     align={'start'}>
                     {children &&
-                    children.map((child) => (
-                        <Link key={child.label} py={2} href={child.href}>
-                            {child.label}
-                        </Link>
-                    ))}
+                        children.map((child) => (
+                            <Link key={child.label} py={2} href={child.href}>
+                                {child.label}
+                            </Link>
+                        ))}
                 </Stack>
             </Collapse>
         </Stack>

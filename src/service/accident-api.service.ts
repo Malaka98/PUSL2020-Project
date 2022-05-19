@@ -4,7 +4,7 @@ import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 const BASE_URL = "http://localhost/"
 
 const AccidentApiService = createApi({
-        reducerPath: "AccidentApiService",
+    reducerPath: "AccidentApiService",
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_URL + "api/",
         credentials: "include",

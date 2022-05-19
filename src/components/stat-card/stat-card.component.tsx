@@ -1,13 +1,13 @@
 import {
-    Stack,
-    Box,
-    Heading,
     HStack,
-    Text,
-    useColorModeValue as mode,
+    Stack,
     Stat,
+    StatArrow,
+    StatGroup,
+    StatHelpText,
     StatLabel,
-    StatNumber, StatHelpText, StatArrow, StatGroup
+    StatNumber,
+    useColorModeValue as mode
 } from '@chakra-ui/react'
 import * as React from 'react'
 import {useNavigate} from "react-router-dom";
@@ -32,12 +32,12 @@ export const StatCard = (props: StatCardProps) => {
 
     return (
         <Stack cursor={'pointer'}
-            px="6"
-            py="4"
-            bg={mode('white', 'gray.700')}
-            borderRadius="8px"
-            boxShadow="md"
-            color={mode('gray.800', 'white')} onClick={clickHandler}
+               px="6"
+               py="4"
+               bg={mode('white', 'gray.700')}
+               borderRadius="8px"
+               boxShadow="md"
+               color={mode('gray.800', 'white')} onClick={clickHandler}
         >
             <HStack spacing="4" mt="2" justifyContent={"space-between"}>
                 <StatGroup>
@@ -45,7 +45,7 @@ export const StatCard = (props: StatCardProps) => {
                         <StatLabel>{label}</StatLabel>
                         <StatNumber>{value}</StatNumber>
                         <StatHelpText>
-                            <StatArrow type='increase' />
+                            <StatArrow type='increase'/>
                             {percentage}
                         </StatHelpText>
                     </Stat>

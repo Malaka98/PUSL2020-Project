@@ -8,7 +8,11 @@ export const getDashboardItem = () => {
 
         let cardDataList: Array<any> = []
 
-        const {error: dashboardCheckError, data: dashboardCheckData, isSuccess}: any = await dispatch(ResourceApiService.endpoints.create.initiate({
+        const {
+            error: dashboardCheckError,
+            data: dashboardCheckData,
+            isSuccess
+        }: any = await dispatch(ResourceApiService.endpoints.create.initiate({
             doc: "validate_dashboard"
         }))
 

@@ -1,13 +1,24 @@
 import {
-    Box, Flex, Heading, Text, useColorModeValue as mode, Button,
-    LightMode, Stack, FormLabel, FormControl, Input, Center, Image, useToast
+    Box,
+    Button,
+    Center,
+    Flex,
+    FormControl,
+    FormLabel,
+    Image,
+    Input,
+    LightMode,
+    Stack,
+    Text,
+    useColorModeValue as mode,
+    useToast
 } from '@chakra-ui/react';
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {loginAction} from "./actions/login-page.actions";
 import useInput from "../../hooks/use-input.hook";
-import {useEffect} from "react";
 import * as React from "react";
+import {useEffect} from "react";
 import {AppDispatch} from "../../store/store";
 
 const LoginPage = () => {
@@ -115,7 +126,8 @@ const LoginPage = () => {
                                     <Box>
                                         <FormControl position="relative">
                                             <FormLabel>Password</FormLabel>
-                                            <Input name={'password'} onChange={handleOnChange} onKeyDown={handleKeypress}
+                                            <Input name={'password'} onChange={handleOnChange}
+                                                   onKeyDown={handleKeypress}
                                                    type="password"
                                                    placeholder="Password" size="md" fontSize="md"/>
                                         </FormControl>

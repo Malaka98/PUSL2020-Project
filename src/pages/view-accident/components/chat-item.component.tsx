@@ -1,4 +1,4 @@
-import {Avatar, Badge, Box, Grid, GridItem, HStack, Link, Stack, Text, Textarea, VStack} from "@chakra-ui/react";
+import {Avatar, Badge, Box, HStack, Link, Stack, Text} from "@chakra-ui/react";
 
 const ChatItemComponent = (props: any) => {
     return (

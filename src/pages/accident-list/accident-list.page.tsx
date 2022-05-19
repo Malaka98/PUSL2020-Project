@@ -1,6 +1,5 @@
 import {useRef} from "react";
 import TableComponent from "../../components/table/table.component";
-import PageHeader from "../../components/page-header/page-header.component";
 import {
     Box,
     Button,
@@ -9,10 +8,12 @@ import {
     Menu,
     MenuButton,
     MenuItem,
-    MenuList, Skeleton,
+    MenuList,
+    Skeleton,
     Stack,
     Text,
-    useDisclosure, useToast
+    useDisclosure,
+    useToast
 } from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
 import {useNavigate} from "react-router-dom";

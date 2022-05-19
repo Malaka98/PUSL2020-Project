@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React from 'react';
+import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 
 const data = [
     {
@@ -40,7 +40,7 @@ const data = [
 ];
 
 const SimpleLineChart = () => {
-    return(
+    return (
         <ResponsiveContainer width="100%" height="100%">
             <LineChart
                 width={500}

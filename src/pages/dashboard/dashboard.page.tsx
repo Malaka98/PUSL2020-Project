@@ -8,7 +8,6 @@ import React, {useEffect, useState} from "react";
 import SimpleLineChart from "../../components/charts/simple-line-chart.component";
 import RichPieChart from "../../components/charts/pie-chart.component";
 import BarChartNoPadding from "../../components/charts/bar-chart-no-padding.component";
-import {useGetQuery} from "../../service/resource-api.service";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../store/store";
 import {getDashboardItem} from "./actions/dashboard.action";
