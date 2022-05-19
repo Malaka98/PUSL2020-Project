@@ -33,6 +33,16 @@ const AccidentApiService = createApi({
                 body: payload,
             }),
         }),
+        delete: build.mutation<any, any>({
+            query: ({
+                        doc,
+                        payload
+                    }: any) => ({
+                url: `${doc}`,
+                method: 'DELETE',
+                body: payload,
+            }),
+        }),
     })
 })
 

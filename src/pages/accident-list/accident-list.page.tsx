@@ -9,7 +9,7 @@ import {
     Menu,
     MenuButton,
     MenuItem,
-    MenuList,
+    MenuList, Skeleton,
     Stack,
     useDisclosure, useToast
 } from "@chakra-ui/react";
@@ -29,7 +29,7 @@ const AccidentListPage = () => {
     const toastIdRef = useRef<any>()
     const toast = useToast()
 
-    const {isLoading, data} = useGetAllAccidentListQuery({"doc": "get_all_accident"})
+    const {isLoading, data, error} = useGetAllAccidentListQuery({"doc": "get_all_accident"})
 
     async function statusChangeActionHandler(id: number, status: string) {
         const response: any = await dispatch(AccidentListAction("change_status", {
@@ -54,6 +54,7 @@ const AccidentListPage = () => {
             })
         }
     }
+
 
     const COLUMN = [
         {
@@ -100,57 +101,59 @@ const AccidentListPage = () => {
         }
     ]
 
+    if (isLoading) {
+
+    }
+
     return (
         <>
+            {isLoading ?
+                <Stack>
+                    <Skeleton height='20px'/>
+                    <Skeleton height='20px'/>
+                    <Skeleton height='20px'/>
+                </Stack> :
+                <>
+                    <PageHeader title={'Departments'}/>
+                    <Box py={4}>
+                        <Stack
+                            direction={'row'}
+                            spacing={4}>
+                            <InputGroup width={200} size={'sm'}>
+                                <Input placeholder='Search'/>
+                            </InputGroup>
+                            <Menu>
+                                <MenuButton size={'sm'} as={Button} rightIcon={<ChevronDownIcon/>}>
+                                    Categories
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem>Category 1</MenuItem>
+                                    <MenuItem>Category 2</MenuItem>
+                                    <MenuItem>Category 3</MenuItem>
+                                    <MenuItem>Category 4</MenuItem>
+                                    <MenuItem>Category 5</MenuItem>
+                                </MenuList>
+                            </Menu>
+                            <Menu size={'sm'}>
+                                <MenuButton size={'sm'} as={Button} rightIcon={<ChevronDownIcon/>}>
+                                    Choices
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem>Choice 1</MenuItem>
+                                    <MenuItem>Choice 2</MenuItem>
+                                    <MenuItem>Choice 3</MenuItem>
+                                    <MenuItem>Choice 4</MenuItem>
+                                    <MenuItem>Choice 5</MenuItem>
+                                </MenuList>
+                            </Menu>
+                        </Stack>
+                    </Box>
 
-            <PageHeader   title={'Departments'}/>
-            <Box py={4}>
-                <Stack
-                    direction={'row'}
-                    spacing={4}>
-                    <InputGroup width={200} size={'sm'}>
-                        <Input placeholder='Search'/>
-                    </InputGroup>
-                    <Menu>
-                        <MenuButton size={'sm'} as={Button} rightIcon={<ChevronDownIcon/>}>
-                            Categories
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>Category 1</MenuItem>
-                            <MenuItem>Category 2</MenuItem>
-                            <MenuItem>Category 3</MenuItem>
-                            <MenuItem>Category 4</MenuItem>
-                            <MenuItem>Category 5</MenuItem>
-                        </MenuList>
-                    </Menu>
-                    <Menu size={'sm'}>
-                        <MenuButton size={'sm'} as={Button} rightIcon={<ChevronDownIcon/>}>
-                            Choices
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>Choice 1</MenuItem>
-                            <MenuItem>Choice 2</MenuItem>
-                            <MenuItem>Choice 3</MenuItem>
-                            <MenuItem>Choice 4</MenuItem>
-                            <MenuItem>Choice 5</MenuItem>
-                        </MenuList>
-                    </Menu>
-                </Stack>
-            </Box>
-
-            <TableComponent columns={COLUMN} data={data} />
+                    <TableComponent columns={COLUMN} data={data}/>
+                </>
+            }
         </>
     )
 }
 
 export default AccidentListPage
-
-// const rowData = [
-//     {
-//         location: "Lorem",
-//         description: "Lorem",
-//         vehicleNumber: "Lorem",
-//         vehicleType: "Lorem",
-//         approved: "Approved"
-//     },
-// ]

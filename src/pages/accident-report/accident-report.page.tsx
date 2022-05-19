@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {
     Box,
     Button,
@@ -9,7 +9,8 @@ import {
     MenuItem,
     MenuList,
     Stack,
-    useDisclosure
+    useDisclosure,
+    useToast
 } from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
 import PageHeader from "../../components/page-header/page-header.component";
@@ -21,33 +22,78 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../store/store";
 import {getAccidentViewItems} from "../../store/common/viewAccidentSlice";
 import {useNavigate} from "react-router-dom";
+import {DeleteAccident} from "./actions/add-accident-report.action";
 
 const AccidentReportPage = () => {
 
     const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate()
     const {isOpen, onOpen, onClose} = useDisclosure();
+    const toast = useToast()
+    const toastIdRef = useRef<any>()
     const {isOpen: isAwardOpen, onOpen: onAwardOpen, onClose: onAwardClose} = useDisclosure();
     const [attachment, setAttachment] = useState<Array<any>>([])
-    // const [accidentData, setAccidentData] = useState<Array<any>>([])
 
     const {isLoading, data} = useGetAccidentListQuery({"doc": "accident"})
 
-    // useEffect(() => {
-    //     getData()
-    // }, [accidentData])
-    // console.log("**********************" + JSON.stringify(accidentData))
-    // async function getData() {
-    //     let depData: any = await (dispatch(GetAccidentReportList("accident")))
-    //     setAccidentData(depData.data)
-    // }
-    // if(data) {
-    //     setAccidentData(data)
-    // }
     const onSelected = (data: any) => {
         dispatch(getAccidentViewItems(data))
         navigate("/app/view_accident")
     }
+
+    const onDeleteActionHandler = async (id: number) => {
+        const response: any = dispatch(DeleteAccident("accident", id))
+        if (response.status === 'error') {
+            toastIdRef.current = toast({
+                title: 'Success!',
+                description: "Accident deleted successfully",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+    }
+
+    const COLUMN = [
+        {
+            header: "Location",
+            accessor: "location",
+        },
+        {
+            header: "Description",
+            accessor: "description",
+        },
+        {
+            header: "Vehicle Number",
+            accessor: "vehicleNumber"
+        },
+        {
+            header: "Vehicle",
+            accessor: "vehicleType"
+        },
+        {
+            header: "Status",
+            accessor: "approved",
+            condition: {
+                Approved: "green",
+                Pending: "yellow",
+                Reject: "red"
+            }
+        },
+        {
+            header: "Actions",
+            options: [
+                {
+                    label: "Delete Accident",
+                    action: function (rowItem: any) {
+                        console.log(rowItem)
+                        onDeleteActionHandler(rowItem?.id)
+                    }
+                },
+            ]
+        }
+    ]
+
     return (
         <>
             <PageHeader primaryActionName="Add New Department" primaryAction={() => {
@@ -87,7 +133,7 @@ const AccidentReportPage = () => {
                 </Stack>
             </Box>
 
-            <TableComponent columns={COLUMN} data={data} onSelected = {onSelected}/>
+            <TableComponent columns={COLUMN} data={data} onSelected={onSelected}/>
 
             <AddNewAccidentReportComponent attachment={attachment} setAttachment={setAttachment}
                                            modelMethods={{
@@ -106,66 +152,5 @@ const AccidentReportPage = () => {
         </>
     )
 }
-
-const COLUMN = [
-    {
-        header: "Location",
-        accessor: "location",
-    },
-    {
-        header: "Description",
-        accessor: "description",
-    },
-    {
-        header: "Vehicle Number",
-        accessor: "vehicleNumber"
-    },
-    {
-        header: "Vehicle",
-        accessor: "vehicleType"
-    },
-    {
-        header: "Status",
-        accessor: "approved",
-        condition: {
-            Approved: "green",
-            Pending: "yellow",
-            Reject: "red"
-        }
-    },
-    // {
-    //     header: "Actions",
-    //     options: [
-    //         {
-    //             label: "Add Photos",
-    //             action: function (rowItem: any) {
-    //                 console.log(rowItem)
-    //             }
-    //         },
-    //         {
-    //             label: "Payments",
-    //             action: function (rowItem: any) {
-    //                 console.log(rowItem)
-    //             }
-    //         },
-    //         {
-    //             label: "Block",
-    //             action: function (rowItem: any) {
-    //                 console.log(rowItem)
-    //             }
-    //         },
-    //     ]
-    // }
-]
-
-// const rowData = [
-//     {
-//         location: "Lorem",
-//         description: "Lorem",
-//         vehicleNumber: "Lorem",
-//         vehicleType: "Lorem",
-//         approved: "Approved"
-//     },
-// ]
 
 export default AccidentReportPage

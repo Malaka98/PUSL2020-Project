@@ -12,12 +12,13 @@ export const AddAccidentReportAction = (doc: String, payload: any) => {
     }
 }
 
-// export const GetAccidentReportList = (doc: String) => {
-//
-//     return async (dispatch: AppDispatch) => {
-//         const {error, data}: any = await dispatch(ResourceApiService.endpoints.get.initiate({
-//             doc: doc
-//         }))
-//         if (!error) return {status: 'success', data: data}; else return {status: 'error'}
-//     }
-// }
+export const DeleteAccident = (doc: String, id: number) => {
+
+    return async (dispatch: AppDispatch) => {
+        const {error, data}: any = await dispatch(AccidentApiService.endpoints.delete.initiate({
+            doc: `${doc}/${id}`,
+        }))
+        await dispatch(AccidentApiService.util.invalidateTags(['GetAccidentList']))
+        if (!error) return {status: 'success', data: data}; else return {status: 'error'}
+    }
+}
