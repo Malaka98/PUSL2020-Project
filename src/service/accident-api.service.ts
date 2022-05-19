@@ -9,13 +9,19 @@ const AccidentApiService = createApi({
         baseUrl: BASE_URL + "api/",
         credentials: "include",
     }),
-    tagTypes: ['GetAccidentList'],
+    tagTypes: ['GetAccidentList', 'GetAllAccidentList'],
     endpoints: build => ({
         getAccidentList: build.query<any, any>({
             query: ({
                         doc
                     }: any) => `${doc}`,
             providesTags: ['GetAccidentList']
+        }),
+        getAllAccidentList: build.query<any, any>({
+            query: ({
+                        doc
+                    }: any) => `${doc}`,
+            providesTags: ['GetAllAccidentList']
         }),
         create: build.mutation<any, any>({
             query: ({
@@ -30,5 +36,5 @@ const AccidentApiService = createApi({
     })
 })
 
-export const {useGetAccidentListQuery} = AccidentApiService
+export const {useGetAccidentListQuery, useGetAllAccidentListQuery} = AccidentApiService
 export default AccidentApiService
