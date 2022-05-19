@@ -11,6 +11,7 @@ import {
     MenuItem,
     MenuList, Skeleton,
     Stack,
+    Text,
     useDisclosure, useToast
 } from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
@@ -114,7 +115,7 @@ const AccidentListPage = () => {
                     <Skeleton height='20px'/>
                 </Stack> :
                 <>
-                    <PageHeader title={'Departments'}/>
+                    <Text fontSize='4xl'>All Accident</Text>
                     <Box py={4}>
                         <Stack
                             direction={'row'}
